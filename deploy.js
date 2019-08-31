@@ -1,6 +1,7 @@
 const Web3 = require('web3');
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const { interface, bytecode } = require('./compile.js');
+const fs = require('fs');
 
 
 const provider = new HDWalletProvider(
@@ -10,19 +11,17 @@ const provider = new HDWalletProvider(
 
 const web3 = new Web3(provider);
 
-let accounts;
-let inbox;
-
 async function deploy() {
     accounts = await web3.eth.getAccounts();
-    inbox = await new web3.eth.Contract(JSON.parse(interface)).deploy({
-        data: bytecode,
-        arguments: ['Hello']
+    new web3.eth.Contract(JSON.parse(interface)).deploy({
+        data: bytecode
     }).send({
         from: accounts[0],
         gas: '1000000'
+    }).then(instance => {
+        fs.writeFile("instance_address.txt", instance.options.address);
     });
-    console.log(inbox.options.address);
+    fs.writeFile("ABI.json", interface);
 }
 
 deploy();
