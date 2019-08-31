@@ -12,4 +12,11 @@ contract Fight {
         require(msg.value > 0.1 ether);
         players.push(msg.sender);
     }
+
+    function pickWinner() public returns (uint) {
+        require(msg.sender == manager);
+        uint winner = uint(keccak256(block.difficulty, block.timestamp, players));
+        winner = winner%players.length;
+        players[winner].transfer(this.balance);
+    }
 }
