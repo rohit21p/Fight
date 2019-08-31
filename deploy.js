@@ -19,9 +19,13 @@ async function deploy() {
         from: accounts[0],
         gas: '1000000'
     }).then(instance => {
-        fs.writeFile("instance_address.txt", instance.options.address);
+        fs.writeFile("instance_address.txt", instance.options.address, (err) => {
+            console.log(err);
+        });
     });
-    fs.writeFile("ABI.json", interface);
+    fs.writeFile("ABI.json", interface, (err) => {
+        console.log(err);
+    });
 }
 
 deploy();
