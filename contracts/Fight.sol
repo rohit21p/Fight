@@ -18,5 +18,6 @@ contract Fight {
         uint winner = uint(keccak256(block.difficulty, block.timestamp, players));
         winner = winner%players.length;
         players[winner].transfer(this.balance);
+        delete players;
     }
 }
