@@ -5,7 +5,7 @@ const fs = require('fs');
 
 
 const provider = new HDWalletProvider(
-    'leg easily pride cheese tip inmate dismiss early topple puzzle gallery obscure',
+    'MNEMONIC',
     'https://rinkeby.infura.io/v3/786c5aa8a98c4de986e7bcc185066f5a'
 ) 
 
